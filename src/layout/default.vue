@@ -27,7 +27,6 @@ export default {
   display: grid;
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  column-gap: 1rem;
   grid-auto-flow: column;
   grid-auto-rows: 1fr;
   grid-template-columns: 20rem 1fr;

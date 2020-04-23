@@ -180,7 +180,7 @@ export default {
 <style lang="scss" scoped>
 #demo {
   display: grid;
-  padding: 5rem 3rem;
+  padding: 3rem;
 
   .dashboard {
     display: grid;
@@ -196,7 +196,7 @@ export default {
       display: grid;
       align-items: center;
       padding: 0.5rem;
-      background: #000;
+      background: #333;
       color: #fff;
       font-size: 1.8rem;
       grid-area: header;
@@ -215,7 +215,7 @@ export default {
 
     aside {
       padding: 1rem;
-      background: linear-gradient(to bottom, #000 0%, #0470dc 100%);
+      background: linear-gradient(to bottom, #333 0%, #00adee 100%);
       color: #fff;
       grid-area: aside;
 
