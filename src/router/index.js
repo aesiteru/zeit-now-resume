@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 Vue.use(Router)
 
@@ -15,7 +16,16 @@ const router = new Router({
           component: () => import('../page/about')
         },
         {
-          path     : 'demo',
+          path: 'demo',
+          beforeEnter (to, from, next) {
+            const moduleName = 'demo'
+            const storeModule = require('../store/demo').default
+            const isStore = (store && store.state && store.state[moduleName])
+            if (!isStore) store.registerModule(moduleName, storeModule)
+
+            store.dispatch('demo/SET_DATA')
+            next()
+          },
           component: () => import('../page/demo')
         },
         { path: '*', redirect: 'about' }

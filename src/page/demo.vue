@@ -75,6 +75,7 @@
 </template>
 <script>
 import moment from 'moment'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     chartComplex: () => import('../components/chart/complex'),
@@ -92,41 +93,10 @@ export default {
     }
   },
   computed: {
-    dataset () {
-      const category = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
-      const sub_cat = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
-      const output = []
-      const st = moment('2020-04-10')
-      const ed = moment('2020-04-24')
-
-      const diff = ed.diff(st, 'days')
-
-      const duration = []
-
-      for(let i = 0; i < diff; i ++) {
-        duration[i] = st.add(1, 'days').format('YYYY-MM-DD')
-      }
-      for(let i = 0; i < 1000; i++) {
-        output[i] = {
-          category: 'Cat. ' + category[Math.floor(Math.random() * category.length)],
-          sub_cat : 'Sub. ' + sub_cat[Math.floor(Math.random() * sub_cat.length)],
-          date    : duration[Math.floor(Math.random() * duration.length)],
-          total   : Math.floor(Math.random() * 100),
-          value1  : Math.floor(Math.random() * 100) + 0,
-          value2  : Math.floor(Math.random() * 100) + 0,
-        }
-        const total = output[i]['total'] = output[i]['total'] === 0 ? 1 : output[i]['total']
-        output[i]['value1'] = total < output[i]['value1'] ? 0 : output[i]['value1']
-
-        const value1 = output[i]['value1']
-        output[i]['value2'] = total - value1
-
-      }
-      return output
-    },
-    categories () {
-      return Array.from(new Set(this.dataset.map(d => d['category'])))
-    },
+    ...mapGetters({
+      dataset   : 'demo/dataset',
+      categories: 'demo/category'
+    }),
     filtered () {
       const dataset = this.category
         ? this.dataset.filter(v => v['category'] === this.category)
