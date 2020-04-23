@@ -231,6 +231,7 @@ export default {
         .category {
           padding: 0.5rem;
           font-size: 1.3rem;
+          text-align: center;
           transition: all 0.3s linear;
 
           &:hover {

@@ -82,6 +82,7 @@ nav {
 
     a {
       color: #333;
+      text-align: center;
       text-decoration: none;
 
       &:hover {
