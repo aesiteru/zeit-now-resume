@@ -104,7 +104,7 @@ export default {
       for(let i = 0; i < diff; i ++) {
         duration[i] = st.add(1, 'days').format('YYYY-MM-DD')
       }
-      for(let i = 0; i < 1000; i++) {
+      for(let i = 0; i < 3000; i++) {
         output[i] = {
           category: category[Math.floor(Math.random() * category.length)],
           sub_cat : sub_cat[Math.floor(Math.random() * sub_cat.length)],
