@@ -26,8 +26,9 @@ body {
 
 #app {
   display: grid;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
+  padding: 5rem;
+  background-color: #ccc;
 }
+
 </style>

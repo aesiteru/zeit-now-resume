@@ -1,85 +1,87 @@
 <template>
   <div id="demo">
-    <header>
-      <div class="logo">
-        LOGO
-      </div>
-      <div class="demo-description">
-        현재 데이터의 상태를 요약하여 DASHBOARD 형태로 보여줍니다.
-      </div>
-    </header>
-    <aside>
-      <div class="filter">
-        <div
-          v-for="(d,i) in categories"
-          :key="'category-'+i"
-          class="category"
-          :class="{'active': category === d}"
-          @click.stop.prevent="changeCategory(d)"
-        >
-          {{ d }}
+    <div class="dashboard">
+      <header>
+        <div class="logo">
+          LOGO
         </div>
-      </div>
-    </aside>
-    <main>
-      <div class="title">
-        Data Title
-        <div class="source">
-          Data Source Date
+        <div class="demo-description">
+          현재 데이터의 상태를 요약하여 DASHBOARD 형태로 보여줍니다.
         </div>
-      </div>
-      <div class="chart-area chart-complex">
-        <chart-complex
-          v-if="complexData.length > 0"
-          :dataset="complexData"
-        />
-      </div>
-      <section class="summary">
-        <div class="item chart-donuts">
+      </header>
+      <aside>
+        <div class="filter">
           <div
-            v-for="(d, k, i) in summary"
-            :key="'summary-'+i"
-            class="chart-donut"
+            v-for="(d,i) in categories"
+            :key="'category-'+i"
+            class="category"
+            :class="{'active': category === d}"
+            @click.stop.prevent="changeCategory(d)"
           >
-            <chart-donut
-              :dataset="{ total: valuesTotal, value: d }"
-              :title="k"
-            />
+            {{ d }}
           </div>
         </div>
-        <div class="item chart-guage">
-          <chart-guage :dataset="{ total: valuesTotal, value: valueSum }" />
+      </aside>
+      <main>
+        <div class="title">
+          Data Title
+          <div class="source">
+            Data Source Date
+          </div>
         </div>
-        <div class="item chart-pie">
-          <chart-pie
-            :dataset="pieData"
-            :color-set="category ? 'schemePastel2': 'schemeSet2'"
+        <div class="chart-area chart-complex">
+          <chart-complex
+            v-if="complexData.length > 0"
+            :dataset="complexData"
           />
         </div>
-      </section>
-      <section
-        ref="grid"
-        class="data-grid"
-      >
-        <data-grid
-          v-if="!loading"
-          :dataset="filtered"
-          :width="gridWidth"
-          :height="gridHeight"
-        />
-      </section>
-    </main>
+        <section class="summary">
+          <div class="item chart-donuts">
+            <div
+              v-for="(d, k, i) in summary"
+              :key="'summary-'+i"
+              class="chart-donut"
+            >
+              <chart-donut
+                :dataset="{ total: valuesTotal, value: d }"
+                :title="k"
+              />
+            </div>
+          </div>
+          <div class="item chart-guage">
+            <chart-guage :dataset="{ total: valuesTotal, value: valueSum }" />
+          </div>
+          <div class="item chart-pie">
+            <chart-pie
+              :dataset="pieData"
+              :color-set="category ? 'schemePastel2': 'schemeSet2'"
+            />
+          </div>
+        </section>
+        <section
+          ref="grid"
+          class="data-grid"
+        >
+          <data-grid
+            v-if="!loading"
+            :dataset="filtered"
+            :width="gridWidth"
+            :height="gridHeight"
+          />
+        </section>
+      </main>
+    </div>
   </div>
 </template>
 <script>
 import moment from 'moment'
 export default {
   components: {
-    chartComplex: () => import('../component/chart/complex'),
-    chartDonut  : () => import('../component/chart/donut'),
-    chartGuage  : () => import('../component/chart/guage'),
-    chartPie    : () => import('../component/chart/pie'),
-    dataGrid    : () => import('../component/grid')
+    chartComplex: () => import('../components/chart/complex'),
+    chartDonut  : () => import('../components/chart/donut'),
+    chartGuage  : () => import('../components/chart/guage'),
+    chartPie    : () => import('../components/chart/pie'),
+    dataGrid    : () => import('../components/grid')
   },
   data () {
     return {
@@ -94,7 +96,7 @@ export default {
       const category = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
       const sub_cat = [ 'A', 'B', 'C', 'D', 'E', 'F' ]
       const output = []
-      const st = moment('2020-04-01')
+      const st = moment('2020-04-10')
       const ed = moment('2020-04-24')
 
       const diff = ed.diff(st, 'days')
@@ -104,16 +106,16 @@ export default {
       for(let i = 0; i < diff; i ++) {
         duration[i] = st.add(1, 'days').format('YYYY-MM-DD')
       }
-      for(let i = 0; i < 3000; i++) {
+      for(let i = 0; i < 1000; i++) {
         output[i] = {
-          category: category[Math.floor(Math.random() * category.length)],
-          sub_cat : sub_cat[Math.floor(Math.random() * sub_cat.length)],
+          category: 'Cat. ' + category[Math.floor(Math.random() * category.length)],
+          sub_cat : 'Sub. ' + sub_cat[Math.floor(Math.random() * sub_cat.length)],
           date    : duration[Math.floor(Math.random() * duration.length)],
           total   : Math.floor(Math.random() * 100),
           value1  : Math.floor(Math.random() * 100) + 0,
           value2  : Math.floor(Math.random() * 100) + 0,
         }
-        const total = output[i]['total']
+        const total = output[i]['total'] = output[i]['total'] === 0 ? 1 : output[i]['total']
         output[i]['value1'] = total < output[i]['value1'] ? 0 : output[i]['value1']
 
         const value1 = output[i]['value1']
@@ -208,102 +210,106 @@ export default {
 <style lang="scss" scoped>
 #demo {
   display: grid;
-  min-height: 1000px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  grid-template-areas:
-    "header header"
-    "aside main";
-  grid-template-columns: 15rem 1fr;
-  grid-template-rows: 5rem 1fr;
+  padding: 5rem 3rem;
 
-  header {
+  .dashboard {
     display: grid;
-    align-items: center;
-    padding: 0.5rem;
-    background: #000;
-    color: #fff;
-    font-size: 1.8rem;
-    grid-area: header;
-    grid-auto-flow: column;
-    grid-template-columns: 15rem 1fr;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    grid-template-areas:
+      "header header"
+      "aside main";
+    grid-template-columns: 10rem 1fr;
+    grid-template-rows: 5rem 1fr;
 
-    .logo {
-      align-self: center;
-      justify-self: center;
-    }
-
-    .demo-description {
-      font-size: 1.2rem;
-    }
-  }
-
-  aside {
-    padding: 1rem;
-    background: linear-gradient(to bottom, #000 0%, #0470dc 100%);
-    color: #fff;
-    grid-area: aside;
-
-    .filter {
+    header {
       display: grid;
-      padding: 0 3px;
-      padding-bottom: 5px;
-      background-color: #1a1e23;
-      border-radius: 5px;
-      box-shadow: inset 1px 1px 3px 0 #000;
-      row-gap: 0.5rem;
+      align-items: center;
+      padding: 0.5rem;
+      background: #000;
+      color: #fff;
+      font-size: 1.8rem;
+      grid-area: header;
+      grid-auto-flow: column;
+      grid-template-columns: 10rem 1fr;
 
-      .category {
-        padding: 0.5rem;
-        font-size: 1.3rem;
-        transition: all 0.3s linear;
+      .logo {
+        align-self: center;
+        justify-self: center;
+      }
 
-        &:hover {
-          cursor: pointer;
-        }
+      .demo-description {
+        font-size: 1.2rem;
+      }
+    }
 
-        &:hover,
-        &.active {
-          border-radius: 3px;
-          box-shadow: inset 0 0 4px 0 #b6d0cb;
-          color: #00adee;
+    aside {
+      padding: 1rem;
+      background: linear-gradient(to bottom, #000 0%, #0470dc 100%);
+      color: #fff;
+      grid-area: aside;
+
+      .filter {
+        display: grid;
+        padding: 0 3px;
+        padding-bottom: 5px;
+        background-color: #1a1e23;
+        border-radius: 5px;
+        box-shadow: inset 1px 1px 3px 0 #000;
+        row-gap: 0.5rem;
+
+        .category {
+          padding: 0.5rem;
+          font-size: 1.3rem;
+          transition: all 0.3s linear;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:hover,
+          &.active {
+            border-radius: 3px;
+            box-shadow: inset 0 0 4px 0 #b6d0cb;
+            color: #00adee;
+          }
         }
       }
     }
-  }
 
-  main {
-    display: grid;
-    padding: 1rem;
-    grid-area: main;
-    grid-row-gap: 0.5rem;
-    grid-template-rows: 3rem 26rem 35rem 1fr;
-
-    .summary {
+    main {
       display: grid;
-      column-gap: 0.5rem;
-      gap: 0.5rem;
-      grid-auto-flow: column;
-      grid-template-areas:
-        "donuts pie"
-        "guage pie";
-      grid-template-columns: 40rem 1fr;
-      grid-template-rows: 14rem 1fr;
+      padding: 1rem;
+      grid-area: main;
+      grid-row-gap: 0.5rem;
+      grid-template-rows: 3rem 26rem 35rem minmax(35rem, 1fr);
 
-      .chart-donuts {
+      .summary {
         display: grid;
         column-gap: 0.5rem;
-        grid-area: donuts;
+        gap: 0.5rem;
         grid-auto-flow: column;
-        grid-template-columns: 1fr 1fr 1fr;
-      }
+        grid-template-areas:
+          "donuts pie"
+          "guage pie";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 14rem 1fr;
 
-      .chart-guage {
-        grid-area: guage;
-      }
+        .chart-donuts {
+          display: grid;
+          column-gap: 0.5rem;
+          grid-area: donuts;
+          grid-auto-flow: column;
+          grid-template-columns: 1fr 1fr 1fr;
+        }
 
-      .chart-pie {
-        grid-area: pie;
+        .chart-guage {
+          grid-area: guage;
+        }
+
+        .chart-pie {
+          grid-area: pie;
+        }
       }
     }
   }

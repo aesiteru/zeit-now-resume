@@ -25,6 +25,10 @@
     "moment": "^2.24.0",
     "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2",
+    "stylelint": "^13.3.3",
+    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-standard-scss": "^1.1.0",
+    "stylelint-scss": "^3.17.1",
     "vue-router": "^3.1.6",
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.2.0"
@@ -35,10 +39,35 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:vue/recommended"
     ],
-    "rules": {},
+    "rules": {
+      "key-spacing": ["error", {
+        "mode": "strict",
+        "beforeColon": false,
+        "align": "colon"
+      }],
+      "object-curly-spacing": ["error", "always", {
+        "arraysInObjects": true
+      }],
+      "array-bracket-spacing": ["error", "always", { 
+        "singleValue": false,
+        "objectsInArrays": false
+      }],
+      "array-bracket-newline": ["error", { "multiline": true } ],
+      "array-element-newline": ["error", "consistent"],
+      "space-infix-ops": ["error", {"int32Hint": false}],
+      "comma-spacing": ["error", { 
+        "before": false, 
+        "after": true 
+      }],
+      "indent": ["error",2],
+      "quotes": ["error","single"],
+      "semi": ["error","never"],
+      "no-console": "off",
+      "no-trailing-spaces": ["error", { "skipBlankLines": true }]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

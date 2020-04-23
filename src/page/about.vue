@@ -53,8 +53,8 @@
 <script>
 export default {
   components: {
-    postComponent: () => import('../component/post'),
-    coverLetter  : () => import('../component/coverLetter')
+    postComponent: () => import('../components/post'),
+    coverLetter  : () => import('../components/coverLetter')
   },
   data () {
     return {
@@ -171,6 +171,8 @@ export default {
 
   .container-dev-tool,
   .container-libraries {
+    padding: 1rem;
+
     .content {
       background-color: #fff;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

@@ -52,8 +52,8 @@ export default {
     radius () { return Math.min(this.width, this.height) / 2 },
     outerArc () {
       return d3.arc()
-        .outerRadius(this.radius * 0.9)
-        .innerRadius(this.radius * 0.7)
+        .outerRadius(this.radius)
+        .innerRadius(this.radius * 0.8)
         .startAngle(0)
         .endAngle(d => {
           const v = 2 * Math.PI * d
@@ -136,7 +136,7 @@ export default {
   height: 100%;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
 
   svg {
     path {

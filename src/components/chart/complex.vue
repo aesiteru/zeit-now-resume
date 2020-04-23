@@ -1,7 +1,7 @@
 <template>
   <div class="chart-wrapper">
     <svg
-      width="850"
+      width="700"
       height="250"
     >
       <g :transform="`translate(0, ${margin.top})`">

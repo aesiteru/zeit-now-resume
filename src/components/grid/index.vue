@@ -6,7 +6,6 @@
     <div
       class="scroll-container"
       :style="{
-        width: width + 'px',
         height: height + 'px',
         overflow: 'auto',
         willChange: 'top, scroll-position'
@@ -24,6 +23,8 @@
         <table
           :style="{
             position: 'absolute',
+            width: '100%',
+            tableLayout: 'fixed',
             top: (offsetY) + 'px'
           }"
         >
@@ -154,15 +155,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .table-wrapper {
+  display: grid;
+
   table {
-    width: 100%;
+    border: none;
     border-collapse: collapse;
     table-layout: fixed;
 
     th,
     td {
       overflow: hidden;
-      max-width: 30rem;
       padding: 0.3rem 0.5rem;
       text-overflow: ellipsis;
       white-space: nowrap;
