@@ -65,7 +65,7 @@
               <li>Source Control - github</li>
               <li>Editor - vscode</li>
               <li>Client - Vue 2.x</li>
-              <li>Server - IIS, Node, MSSQL</li>
+              <li>Server - IIS, MSSQL</li>
               <li>Markup/Style - emmet, SCSS</li>
             </ul>
           </div>
