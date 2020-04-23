@@ -3,10 +3,6 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-import moment from 'moment'
-
-Object.defineProperty(Vue.prototype, '$moment', { value: moment })
-
 Vue.config.productionTip = false
 
 new Vue({
