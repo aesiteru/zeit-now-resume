@@ -59,14 +59,10 @@
           </div>
         </section>
         <section
-          ref="grid"
           class="data-grid"
         >
           <data-grid
-            v-if="!loading"
             :dataset="filtered"
-            :width="gridWidth"
-            :height="gridHeight"
           />
         </section>
       </main>
@@ -74,7 +70,6 @@
   </div>
 </template>
 <script>
-import moment from 'moment'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -146,12 +141,6 @@ export default {
       return output
     }
   },
-  mounted () {
-    const box = this.$refs.grid.getBoundingClientRect()
-    this.gridWidth = box.width
-    this.gridHeight = box.height
-    this.loading = false
-  },
   methods: {
     changeCategory(cat) {
       if(cat === this.category) {
@@ -164,13 +153,20 @@ export default {
       const _cat = dataset.filter(d => d['date']).map(d => new Date(d['date']))
       const minDate = Math.min.apply(null, _cat)
       const maxDate = Math.max.apply(null, _cat)
-      const startDate = moment(minDate)
-      const endDate = moment(maxDate)
-      const diff = moment(endDate).diff(startDate, 'days')
+      const diff = Math.round((maxDate - minDate) / (1000 * 60 * 60 * 24))
+
       const dates = []
       for (let i = 0; i <= diff; i++) {
-        const du = moment(startDate).add(i, 'days').format('YYYY-MM-DD')
-        dates.push(du)
+
+        let f = new Date(minDate)
+        f.setDate(f.getDate() + i)
+        let y = f.getFullYear()
+        let m = f.getMonth() + 1
+        let d = f.getDate()
+
+        if(String(m).length === 1) m = '0' + m
+        const r = [ y, m, d ].map(v => String(v)).join('-')
+        dates.push(r)
       }
       return dates
     }

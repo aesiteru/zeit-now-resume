@@ -76,18 +76,12 @@ export default {
     dataset: {
       type   : Array,
       default: () => []
-    },
-    width: {
-      type   : Number,
-      default: 0
-    },
-    height: {
-      type   : Number,
-      default: 0
     }
   },
   data () {
     return {
+      width          : 0,
+      height         : 0,
       loading        : true,
       rowHeight      : 20,
       lastScrollY    : 0,
@@ -125,6 +119,9 @@ export default {
     }
   },
   mounted () {
+    const box = this.$refs.grid.getBoundingClientRect()
+    this.width = box.width
+    this.height = box.height
     this.onUpdate()
   },
   methods: {
@@ -146,9 +143,6 @@ export default {
       this.visibleChildren = new Array(this.visibleRowCount)
         .fill(null)
         .map((_, index) => this.list[index + this.startIndex])
-    },
-    setList () {
-      
     }
   }
 }
@@ -156,6 +150,8 @@ export default {
 <style lang="scss" scoped>
 .table-wrapper {
   display: grid;
+  width: 100%;
+  height: 100%;
 
   table {
     border: none;
