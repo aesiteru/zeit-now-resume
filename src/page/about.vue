@@ -49,7 +49,7 @@
                 Language - Javascript (ECMA, Node, Vanilla)
               </li>
               <li>bundler - webpack 3.x, parcel</li>
-              <li>login &amp; Authorization - jsonwebtoken</li>
+              <li>login &amp; authorization - jsonwebtoken</li>
               <li>logic - lodash, moment</li>
               <li>board - multer, sharp, text editor(quill, tip-tap), file-saver</li>
               <li>web storage - localforage</li>
@@ -64,18 +64,12 @@
               </li>
               <li>Source Control - github</li>
               <li>Editor - vscode</li>
-              <li>Client - Vue 2.x</li>
+              <li>Client - Vue</li>
               <li>Server - IIS, MSSQL</li>
               <li>Markup/Style - emmet, SCSS</li>
             </ul>
           </div>
         </section>
-      </div>
-      <div class="container container-cover-letter">
-        <h2>COVER LETTER</h2>
-        <div class="content">
-          <cover-letter />
-        </div>
       </div>
     </div>
   </div>
@@ -84,7 +78,6 @@
 export default {
   components: {
     postComponent: () => import('../components/post'),
-    coverLetter  : () => import('../components/coverLetter')
   },
   data () {
     return {
@@ -94,15 +87,14 @@ export default {
           duration: '2018. 12 - 현재',
           works   : {
             front: [
-              'Framwork 구조 설계 및 적용',
+              'Client Framework 구조 설계 및 적용',
               'JS 라이브러리의 테스팅 및 적용',
-              'UX 디자인 / 비즈니스 서비스 기능 제안 및 적용'
+              '비즈니스 서비스 기능 제안 및 적용'
             ],
             back: [
               'Database 구조 설계 및 적용',
               'Restful API 서비스 구조 설계 및 적용',
-              '대용량데이터 처리 프로세스 설계 및 적용',
-              '비즈니스 데이터 PreProcessing 작업'
+              'Data PreProcessing 작업'
             ]
           }
         },
@@ -113,14 +105,11 @@ export default {
             front: [
               'Classic ASP -> Jquery -> Vue 2.x 마이그레이션',
               'JS 라이브러리의 테스팅 및 적용',
-              '크로스브라우징에 관한 이슈 해결 및 최적화',
-              'UX 디자인 / 비즈니스 서비스 기능 제안 및 적용'
+              '비즈니스 서비스 기능 제안 및 적용'
             ],
             back: [
-              '웹과 서버 분리 작업',
-              '대용량데이터 처리 프로세스 설계 및 적용',
-              '비즈니스 데이터 PreProcessing 작업',
-              '대용량데이터 처리 프로세스 설계 및 적용'
+              'Data PreProcessing 작업',
+              'Database 구축'
             ]
           }
         }
